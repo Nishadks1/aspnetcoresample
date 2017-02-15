@@ -24,7 +24,7 @@ namespace ASPNETCoreSample
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            if (string.Equals(env.EnvironmentName, "Development"))
+            if (env.IsDevelopment())
             {
                 builder.AddUserSecrets();
             }
@@ -49,13 +49,11 @@ namespace ASPNETCoreSample
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
 
-            loggerFactory.AddConsole();
-            loggerFactory.AddDebug();
-            
-            
+            loggerFactory.AddConsole();                    
 
             if (env.IsDevelopment())
             {
+                loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
             }
 
