@@ -1,8 +1,6 @@
-# Demo ASP.NET Core and ASP.NET MVC
+# Demo ASP.NET Core
 
-## ASP.NET Core
-
-### Intro
+## Intro
 
 1. Create a new ASP.NET Core empty project
 2. Add hello.html and return it (Microsoft.AspnetCore.StaticFiles, UseStaticFiles)
@@ -18,7 +16,7 @@
             });
 ```
 
-### DI
+## DI
 
 4. add a service ISampleService, returns IEnumerable<string>, GetSampleStrings
 5. add a SampleService implementing ISampleService
@@ -51,7 +49,7 @@
             });
 ```
 
-### Configuration
+## Configuration
 
 8. Add Microsoft.Extensions.Logging.Debug package
 
@@ -103,7 +101,7 @@
 
 
 
-### Logging
+## Logging
 
 14. Add Microsoft.Extensions.Logging.Debug package
 15. AddDebug to the ILoggerFactory
