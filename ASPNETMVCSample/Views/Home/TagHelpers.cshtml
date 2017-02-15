@@ -1,0 +1,11 @@
+﻿@model Book
+
+<form asp-controller="Home" asp-action="UploadBook" method="post">
+    Title:<input type="text" asp-for="Title" />
+    <br />
+    Publisher:<input type="text" asp-for="Publisher" />
+    <br />
+    <button type="submit">Register</button>
+    <br />
+</form>
+
