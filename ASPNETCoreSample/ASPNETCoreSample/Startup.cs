@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ASPNETCoreSample.Services;
-using ASPNETCoreSample.Ctrls;
+using ASPNETCoreSample.MyControllers;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
@@ -20,7 +20,14 @@ namespace ASPNETCoreSample
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            if (string.Equals(env.EnvironmentName, "Development"))
+            {
+                builder.AddUserSecrets();
+            }
 
             Configuration = builder.Build();
         }
@@ -43,6 +50,9 @@ namespace ASPNETCoreSample
         {
 
             loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
+            
+            
 
             if (env.IsDevelopment())
             {
@@ -57,7 +67,8 @@ namespace ASPNETCoreSample
                 {
                     var s = Configuration.GetValue<string>("SampleGroup:AKey");
                     var s2 = Configuration.GetSection("SampleGroup").GetValue<string>("AKey");
-                    await context.Response.WriteAsync($"<h1>{s}...{s2}</h1>");
+                    var secret = Configuration.GetValue<string>("arealsecret");
+                    await context.Response.WriteAsync($"<h1>{s}...{s2}, secret: {secret}</h1>");
                 });
             });
 
